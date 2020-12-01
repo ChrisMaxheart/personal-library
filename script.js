@@ -1,21 +1,26 @@
 let library = [];
 // define book
+// ini bukannya lebih cocok jadi object constructed by class ya haha
 function Book(title, author, pages, isRead) {
     return {
         title,
         author,
         pages,
         isRead,
+        // kenapa ini perlu pake this ya
         info: function(){return `${this.title} by ${this.author}, ${this.pages} pages, ${this.isRead}.`}
     };
 }
 // define access to book info
 
 let theHobbit = new Book("The Hobbit", "J. R. R. Tolkien", 295, false);
+
+// debug statement sebaiknya dihapus kalo udah masuk production
 for(key in theHobbit){if(typeof(theHobbit[key]) != 'function')console.log(key);};
 library.push(theHobbit);
 
 // define form and modal
+// buat javascript biasain selalu pake const, kalo perlu diganti baru diganti jadi let
 let modal = document.querySelector("#modal");
 let titleInput = document.querySelector("#inptitle");
 let authorInput = document.querySelector("#inpauthor");
@@ -27,6 +32,8 @@ let gallery = document.querySelector("#gallery");
 
 function BookBlock(book) {
     // define all elements
+
+    // ini kenapa perlu pake this ya, do you obsessed dengan 'this' haha. pake const x = .... aja bisa
     this.block = document.createElement('div');
     this.cardButtons = document.createElement('div');
     this.cardInfos = document.createElement('div');
@@ -39,8 +46,15 @@ function BookBlock(book) {
     this.delbtn.classList.add('delbtn');
     this.editbtn.classList.add('editbtn');
     // attach all info to card info
+    // debug statement sebaiknya dihapus kalo udah masuk production
     console.log("bukunya nih ", book);
+
+    // try to not use indexing
+    // bisa pake filter + foreach, atau just hardcode bagian2nya instead of do for loop here, karena bisa jadi kita mau masukkin key yang ga diproses?
+    // I feel agak kotor kalo sampe perlu cek typeof function sama object, might as well kita hardcode declare apa yang kita mau
+    // atau minimal bikin function gitu yang ambil key + valuenya terus do those appends
     for(let key in book){
+        // ini kenapa per
         if(typeof(book[key]) != 'function' && typeof(book[key]) != 'object'){
             let section = document.createElement('div');
             let head = document.createElement('h4');
@@ -98,6 +112,9 @@ function printLibrary() {
 }
 
 function updateGallery() {
+    // 1) debug statement sebaiknya dihapus kalo udah masuk production
+    // 2) akhir while sama for mestinya ga pake ;
+    // 3) spasi diluar kurung? lebih enak dibaca kalo kayak while (...) { }
     console.log("let's update")
     while(gallery.firstElementChild){
         gallery.removeChild(gallery.firstElementChild);
@@ -109,3 +126,4 @@ function updateGallery() {
         gallery.appendChild(block.block);
     };
 }
+// newline pls

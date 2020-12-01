@@ -18,6 +18,8 @@ body {
     align-items: center;
     justify-content: space-between;
 }
+
+/* Biasain jangan terlalu banyak pake id, selalu pake class */
 #header {
     margin-top: 10px;
 }
